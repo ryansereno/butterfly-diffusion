@@ -47,3 +47,7 @@ dataset.set_transform(transform)
 train_dataloader = torch.utils.data.DataLoader(
     dataset, batch_size=batch_size, shuffle=True
 )
+
+from diffusers import DDPMScheduler
+
+noise_scheduler = DDPMScheduler(num_train_timesteps=1000)
