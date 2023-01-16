@@ -6,6 +6,9 @@ import torch
 import torch.nn.functional as F
 from matplotlib import pyplot as plt
 from PIL import Image
+import torchvision
+from datasets import load_dataset
+from torchvision import transforms
 
 
 def show_images(x):
@@ -27,21 +30,6 @@ def make_grid(images, size=64):
 
 # Mac users may need device = 'mps' (untested)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-# Load the butterfly pipeline
-butterfly_pipeline = DDPMPipeline.from_pretrained(
-    "johnowhitaker/ddpm-butterflies-32px"
-).to(device)
-
-# Create 8 images
-images = butterfly_pipeline(batch_size=8).images
-
-# View the result
-make_grid(images)
-
-import torchvision
-from datasets import load_dataset
-from torchvision import transforms
 
 dataset = load_dataset("huggan/smithsonian_butterflies_subset", split="train")
 
