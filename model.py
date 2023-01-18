@@ -9,6 +9,7 @@ from PIL import Image
 import torchvision
 from datasets import load_dataset
 from torchvision import transforms
+from diffusers import DDPMScheduler
 
 
 def show_images(x):
@@ -64,6 +65,25 @@ train_dataloader = torch.utils.data.DataLoader(
     dataset, batch_size=batch_size, shuffle=True
 )
 
-from diffusers import DDPMScheduler
+xb = next(iter(train_dataloader))["images"].to(device)[:8]
+print("X shape:", xb.shape)
+show_images(xb).resize((8 * 64, 64), resample=Image.NEAREST)
 
 noise_scheduler = DDPMScheduler(num_train_timesteps=1000)
+
+plt.plot(noise_scheduler.alphas_cumprod.cpu() ** 0.5, label=r"${\sqrt{\bar{\alpha}_t}}$")
+plt.plot((1 - noise_scheduler.alphas_cumprod.cpu()) ** 0.5, label=r"$\sqrt{(1 - \bar{\alpha}_t)}$")
+plt.legend(fontsize="x-large");
+
+# One with too little noise added:
+# noise_scheduler = DDPMScheduler(num_train_timesteps=1000, beta_start=0.001, beta_end=0.004)
+# The 'cosine' schedule, which may be better for small image sizes:
+# noise_scheduler = DDPMScheduler(num_train_timesteps=1000, beta_schedule='squaredcos_cap_v2')
+
+timesteps = torch.linspace(0, 999, 8).long().to(device)
+noise = torch.randn_like(xb)
+noisy_xb = noise_scheduler.add_noise(xb, noise, timesteps)
+print("Noisy X shape", noisy_xb.shape)
+show_images(noisy_xb).resize((8 * 64, 64), resample=Image.NEAREST)
+
+
