@@ -81,10 +81,10 @@ print("X shape:", xb.shape)
 # The 'cosine' schedule, which may be better for small image sizes:
 # noise_scheduler = DDPMScheduler(num_train_timesteps=1000, beta_schedule='squaredcos_cap_v2')
 
-timesteps = torch.linspace(0, 999, 8).long().to(device)
-noise = torch.randn_like(xb)
-noisy_xb = noise_scheduler.add_noise(xb, noise, timesteps)
-print("Noisy X shape", noisy_xb.shape)
+#timesteps = torch.linspace(0, 999, 8).long().to(device)
+#noise = torch.randn_like(xb)
+#noisy_xb = noise_scheduler.add_noise(xb, noise, timesteps)
+#print("Noisy X shape", noisy_xb.shape)
 #show_images(noisy_xb).resize((8 * 64, 64), resample=Image.NEAREST)
 
 # Create a model
