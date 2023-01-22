@@ -26,7 +26,7 @@
 
 
 
-Basic diffusion pipeline implemented in PyTorch<br/>
+Basic UNet diffusion pipeline implemented in PyTorch<br/>
 Based upon the Intro to Diffusion notebook by Huggingface, trained on the [Sithsonian butteryfly images dataset](https://huggingface.co/datasets/huggan/smithsonian_butterflies_subset).
 <br/>
 
