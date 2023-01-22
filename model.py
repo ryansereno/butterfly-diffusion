@@ -156,3 +156,18 @@ for epoch in range(30):
     if (epoch + 1) % 5 == 0:
         loss_last_epoch = sum(losses[-len(train_dataloader) :]) / len(train_dataloader)
         print(f"Epoch:{epoch+1}, loss: {loss_last_epoch}")
+
+#Plot loss
+fig, axs = plt.subplots(1, 2, figsize=(12, 4))
+axs[0].plot(losses)
+axs[1].plot(np.log(losses))
+plt.show()
+
+#Generating images/ creating pipeline
+image_pipe = DDPMPipeline(unet=model, scheduler=noise_scheduler)
+pipeline_output = image_pipe()
+pipeline_output.images[0]
+
+#Save pipeline and weights
+image_pipe.save_pretrained("my_pipeline")
+
