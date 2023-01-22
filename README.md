@@ -25,7 +25,7 @@
 
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 Basic diffusion pipeline implemented in PyTorch<br/>
 Based upon the Intro to Diffusion notebook by Huggingface, using the Sithsonian butteryfly images dataset.
 <br/>
