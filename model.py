@@ -128,6 +128,7 @@ losses = []
 
 for epoch in range(30):
     for step, batch in enumerate(train_dataloader):
+        print(f"Epoch: {epoch}, Step: {step}")
         clean_images = batch["images"].to(device)
         # Sample noise to add to the images
         noise = torch.randn(clean_images.shape).to(clean_images.device)
@@ -152,16 +153,17 @@ for epoch in range(30):
         # Update the model parameters with the optimizer
         optimizer.step()
         optimizer.zero_grad()
+        print(f"loss: {loss.item()}")
 
     if (epoch + 1) % 5 == 0:
         loss_last_epoch = sum(losses[-len(train_dataloader) :]) / len(train_dataloader)
         print(f"Epoch:{epoch+1}, loss: {loss_last_epoch}")
 
 #Plot loss
-fig, axs = plt.subplots(1, 2, figsize=(12, 4))
-axs[0].plot(losses)
-axs[1].plot(np.log(losses))
-plt.show()
+#fig, axs = plt.subplots(1, 2, figsize=(12, 4))
+#axs[0].plot(losses)
+#axs[1].plot(np.log(losses))
+#plt.show()
 
 #Generating images/ creating pipeline
 image_pipe = DDPMPipeline(unet=model, scheduler=noise_scheduler)
@@ -169,5 +171,5 @@ pipeline_output = image_pipe()
 pipeline_output.images[0]
 
 #Save pipeline and weights
-image_pipe.save_pretrained("my_pipeline")
+image_pipe.save_pretrained("butterfly_pipeline")
 
