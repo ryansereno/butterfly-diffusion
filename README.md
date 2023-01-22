@@ -27,8 +27,10 @@
 
 
 Basic diffusion pipeline implemented in PyTorch<br/>
-Based upon the Intro to Diffusion notebook by Huggingface, using the Sithsonian butteryfly images dataset.
+Based upon the Intro to Diffusion notebook by Huggingface, trained on the [Sithsonian butteryfly images dataset](https://huggingface.co/datasets/huggan/smithsonian_butterflies_subset).
 <br/>
+
+After training, pipeline can generate images of butterflies from random noise.
 
 [Colab Notebook](https://colab.research.google.com/github/huggingface/diffusion-models-class/blob/main/unit1/01_introduction_to_diffusers.ipynb#scrollTo=pxI6aqVnHe10)
 
